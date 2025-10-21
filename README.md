@@ -68,56 +68,16 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
 ⚙️ 設定ファイル conf.json
-json
-コードをコピーする
-{
-  "version": "r160s1-default-202310",
-  "enable_nmap": true,
-  "nmap": {
-    "use_syn_scan": false,
-    "use_service_detection": true,
-    "service_detection_flags": ["-sV"],
-    "os_detection": false,
-    "timing_template": 4,
-    "scan_all_tcp_ports": true,
-    "safe_mode": true
-  },
-  "enable_nuclei": true,
-  "enable_nikto": true,
-  "enable_binwalk": true,
-  "enable_sslscan": true,
-  "ports_to_probe_quick": [22,23,80,443,161,554,8080,8443,8000],
-  "default_creds": [
-    ["admin", "admin"],
-    ["admin", "password"],
-    ["root", "root"]
-  ],
-  "reporting": {
-    "output_dir": "reports",
-    "write_json": true,
-    "write_html": true,
-    "stdout_summary": true
-  },
-  "safety": {
-    "use_safe_checks_only_by_default": true,
-    "reduce_parallelism": true
-  }
-}
+
+---
+
 💻 使い方
 bash
 コードをコピーする
-python3 ebu_r160_checker.py -t 10.0.0.12 -c conf.json -o reports
+python3 ebu_r160_checker.py -t 10.0.0.1 -c conf.json -o reports
 CLI パラメータは短縮形式：
 
-python
-コードをコピーする
-p = argparse.ArgumentParser()
-p.add_argument("-t", "--target", required=True, help="target IP or host")
-p.add_argument("-c", "--conf", default="conf.json", help="conf.json path")
-p.add_argument("-o", "--outdir", default="reports", help="output dir")
-args = p.parse_args()
-実行するとリアルタイムで進捗が表示され、
-完了後に JSON / HTML のレポートが生成されます。
+---
 
 📄 出力ファイル
 種類	形式	用途
