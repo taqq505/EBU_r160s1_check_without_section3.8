@@ -12,12 +12,12 @@
     "safe_mode": true
   },
   "timeouts": {
-    "nmap": 900,
+    "nmap": 1800,
     "curl": 8,
     "nikto": 600,
     "nuclei": 600,
-    "sslscan": 120,
-    "hydra": 300,
+    "sslscan": 300,
+    "hydra": 900,
     "binwalk": 300
   },
   "tools": {
@@ -25,7 +25,14 @@
     "nuclei": { "enabled": true, "severity": ["high","critical"] },
     "nikto": { "enabled": true },
     "sslscan": { "enabled": true },
-    "hydra": { "enabled": false, "userlist": "user.txt", "passlist": "pass.txt" },
+    "hydra": {
+      "enabled": true,
+      "userlist": "user.txt",
+      "passlist": "pass.txt",
+      "threads": 4,
+      "stop_on_success": true,
+      "protocols": ["ssh", "ftp", "telnet", "http-get", "https-get"]
+    },
     "binwalk": { "enabled": false, "firmware_path": "firmware.bin" }
   },
   "report": {
