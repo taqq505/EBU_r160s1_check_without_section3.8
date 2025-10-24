@@ -1,61 +1,36 @@
 {
-  "version": "r160s1-default-202310",
+  "version": "2025.10.detailed",
   "enable_nmap": true,
+  "enable_http_probe": true,
+  "run_global_sslscan": false,
+  "parallel_workers": 6,
   "nmap": {
-    "use_syn_scan": false,
+    "scan_all_tcp_ports": true,
     "use_service_detection": true,
-    "service_detection_flags": ["-sV"],
     "os_detection": false,
     "timing_template": 4,
-    "scan_all_tcp_ports": true,
-    "udp_top": 1000,
-    "safe_mode": true,
-    "recommended_basic_cmd": "nmap -sT -Pn -T4 -p- -oA <output_file> <target>"
+    "safe_mode": true
   },
-  "enable_nuclei": true,
-  "nuclei": {
-    "templates_path": "",
-    "use_default_templates": true
+  "timeouts": {
+    "nmap": 900,
+    "curl": 8,
+    "nikto": 600,
+    "nuclei": 600,
+    "sslscan": 120,
+    "hydra": 300,
+    "binwalk": 300
   },
-  "enable_nikto": true,
-  "enable_zap": false,
-  "enable_greenbone": false,
-  "enable_hydra": false,
-  "enable_ncrack": false,
-  "enable_binwalk": true,
-  "enable_sslscan": true,
-  "scan_timeout_seconds": 600,
-  "ports_to_probe_quick": [22,23,80,443,161,554,8080,8443,8000],
-  "default_creds": [
-    ["admin", "admin"],
-    ["admin", "password"],
-    ["root", "root"],
-    ["root", "admin"],
-    ["operator", "operator"]
-  ],
-  "password_check": {
-    "enable_default_check": true,
-    "bruteforce_tools_allowed": false,
-    "wordlist_path": "/usr/share/wordlists/rockyou.txt"
+  "tools": {
+    "nmap": { "enabled": true },
+    "nuclei": { "enabled": true, "severity": ["high","critical"] },
+    "nikto": { "enabled": true },
+    "sslscan": { "enabled": true },
+    "hydra": { "enabled": false, "userlist": "user.txt", "passlist": "pass.txt" },
+    "binwalk": { "enabled": false, "firmware_path": "firmware.bin" }
   },
-  "firmware": {
-    "enable_strings_check": true,
-    "enable_binwalk": true
-  },
-  "crypto_checks": {
-    "enable_sslscan": true,
-    "min_tls_version": "1.2"
-  },
-  "reporting": {
-    "output_dir": "reports",
-    "write_json": true,
-    "write_html": true,
-    "stdout_summary": true
-  },
-  "safety": {
-    "isolate_scanner_interfaces": true,
-    "reduce_parallelism": true,
-    "use_safe_checks_only_by_default": true,
-    "document_changes_on_failure": true
+  "report": {
+    "max_output_chars": 20000,
+    "include_stdout": true,
+    "html_theme": "simple"
   }
 }
